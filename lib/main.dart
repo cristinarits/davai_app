@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         title: 'davai',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 72, 16, 100),
+            seedColor: const Color.fromARGB(255, 180, 96, 240),
           ),
         ),
         home: MyHomePage(),
@@ -25,9 +25,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  
-}
+class MyAppState extends ChangeNotifier {}
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -40,30 +38,66 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 215, 158, 255),
+      backgroundColor: const Color.fromARGB(255, 180, 96, 240),
       appBar: AppBar(
-        title: const Text('Main Menu'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
-          TextButton(
-            onPressed: () {
-              print('Subjects button pressed');
-            },
-            child: const Text(
-              'Subjects',
-              style: TextStyle(color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: PopupMenuButton<String>(
+              onSelected: (value) {
+                print('selected subject: $value');
+              },
+              child: Row(
+                children: [
+                  Text(
+                    'SUBJECTS',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(width: 6),
+                  Icon(Icons.school, color: Colors.white),
+                ],
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(value: 'history', child: Text('History')),
+                PopupMenuItem(value: 'biology', child: Text('Biology')),
+              ],
             ),
           ),
         ],
       ),
-
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Martin'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'MARTIN',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            SizedBox(height: 2), // the gap
+            CircleAvatar(
+              radius: 140,
+              backgroundImage: AssetImage('assets/profile.jpg'),
+            ),
+            SizedBox(height: 20),
+
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Text(
+              "CHOOSE THE SUBJECT AND THEN LET'S MOVE ON",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+              ),
+            )
+          ],
         ),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: myIndex,
         onTap: (index) {
