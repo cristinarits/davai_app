@@ -26,10 +26,17 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  // Currently empty — you can add logic later
+  
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int myIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +47,6 @@ class MyHomePage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // Placeholder for now
               print('Subjects button pressed');
             },
             child: const Text(
@@ -50,12 +56,26 @@ class MyHomePage extends StatelessWidget {
           ),
         ],
       ),
+
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           child: const Text('Martin'),
         ),
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: myIndex,
+        onTap: (index) {
+          setState(() {
+            myIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: "Subjects"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        ],
       ),
     );
   }
